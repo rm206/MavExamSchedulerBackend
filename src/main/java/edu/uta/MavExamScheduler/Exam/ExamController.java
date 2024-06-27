@@ -23,12 +23,42 @@ public class ExamController {
         this.examService = examService;
     }
 
-    @GetMapping("/{semesterId}/{courseId}")
+    @GetMapping("/semesterAndCourse/{semesterId}/{courseId}")
     public ResponseEntity<?> getExamsByCourseAndSemester(
             @PathVariable("semesterId") UUID semesterId,
             @PathVariable("courseId") UUID courseId
     ) {
-        List<Exam> exams = examService.getExamSchedules(semesterId, courseId);
+        List<Exam> exams = examService.getExamSchedulesBySemesterAndCourse(semesterId, courseId);
+
+        if (exams != null && !exams.isEmpty()) {
+            return ResponseEntity.ok(exams);
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("No exams found"));
+        }
+    }
+
+    @GetMapping("/semester/{semesterId}")
+    public ResponseEntity<?> getExamsBySemester(
+            @PathVariable("semesterId") UUID semesterId
+    ) {
+        List<Exam> exams = examService.getExamSchedulesBySemester(semesterId);
+
+        if (exams != null && !exams.isEmpty()) {
+            return ResponseEntity.ok(exams);
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("No exams found"));
+        }
+    }
+
+    @GetMapping("/course/{courseId}")
+    public ResponseEntity<?> getExamsByCourse(
+            @PathVariable("courseId") UUID courseId
+    ) {
+        List<Exam> exams = examService.getExamSchedulesByCourse(courseId);
 
         if (exams != null && !exams.isEmpty()) {
             return ResponseEntity.ok(exams);

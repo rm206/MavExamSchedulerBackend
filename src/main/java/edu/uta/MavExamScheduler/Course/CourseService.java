@@ -17,4 +17,8 @@ public class CourseService {
     public List<Course> getCoursesBySemester(UUID semesterId) {
         return courseRepository.getCoursesBySemester(semesterId);
     }
+
+    public List<Course> getAllCourses() {
+        return courseRepository.getAllCourses();
+    }
 }

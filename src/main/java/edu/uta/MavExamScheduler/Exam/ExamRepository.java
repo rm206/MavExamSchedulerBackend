@@ -26,7 +26,7 @@ public class ExamRepository {
         this.entity = entity;
     }
 
-    public List<Exam> getExamSchedules(UUID semesterId, UUID courseId) {
+    public List<Exam> getExamSchedulesBySemesterAndCourse(UUID semesterId, UUID courseId) {
 
         String requrl = supabaseUrl + "/rest/v1/schedule?select=section,days_met,date,start_time,end_time,buildings(building_name),room_no,instructors(instructor_name)&semester_id=eq." + semesterId + "&course_id=eq." + courseId;
 
@@ -38,8 +38,30 @@ public class ExamRepository {
             return Collections.emptyList();
         }
     }
+
+    public List<Exam> getExamSchedulesBySemester(UUID semesterId) {
+
+        String requrl = supabaseUrl + "/rest/v1/schedule?select=section,days_met,date,start_time,end_time,buildings(building_name),room_no,instructors(instructor_name)&semester_id=eq." + semesterId;
+
+        try {
+            ResponseEntity<Exam[]> response = restTemplate.exchange(requrl, HttpMethod.GET, this.entity, Exam[].class);
+            return Arrays.asList(response.getBody());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    public List<Exam> getExamSchedulesByCourse(UUID courseId) {
+
+        String requrl = supabaseUrl + "/rest/v1/schedule?select=section,days_met,date,start_time,end_time,buildings(building_name),room_no,instructors(instructor_name)&course_id=eq." + courseId;
+
+        try {
+            ResponseEntity<Exam[]> response = restTemplate.exchange(requrl, HttpMethod.GET, this.entity, Exam[].class);
+            return Arrays.asList(response.getBody());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
 }
-
-//String requrl = "https://odrhoibnishjhadztzhk.supabase.co/rest/v1/schedule?select=section,days_met,date,start_time,end_time,building_id,room_no,instructor_id&semester_id=eq." + semesterID + "&course_id=eq." + courseID;
-
-//String requrl = "https://odrhoibnishjhadztzhk.supabase.co/rest/v1/schedule?select=section,days_met,date,start_time,end_time,buildings(building_name),room_no,instructors(instructor_name)&semester_id=eq." + semesterID + "&course_id=eq." + courseID;

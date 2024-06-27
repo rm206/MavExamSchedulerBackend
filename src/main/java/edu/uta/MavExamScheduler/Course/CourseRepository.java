@@ -38,4 +38,16 @@ public class CourseRepository {
             return Collections.emptyList();
         }
     }
+
+    public List<Course> getAllCourses() {
+        String url = supabaseUrl + "/rest/v1/schedule?select=course_id:courses!inner(id),courses!inner(course_subject,course_number)";
+
+        try {
+            ResponseEntity<Course[]> response = restTemplate.exchange(url, HttpMethod.GET, this.entity, Course[].class);
+            return Arrays.asList(response.getBody());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
 }

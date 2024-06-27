@@ -14,7 +14,15 @@ public class ExamService {
         this.examRepository = examRepository;
     }
 
-    public List<Exam> getExamSchedules(UUID semesterId, UUID courseId) {
-        return examRepository.getExamSchedules(semesterId, courseId);
+    public List<Exam> getExamSchedulesBySemesterAndCourse(UUID semesterId, UUID courseId) {
+        return examRepository.getExamSchedulesBySemesterAndCourse(semesterId, courseId);
+    }
+
+    public List<Exam> getExamSchedulesBySemester(UUID semesterId) {
+        return examRepository.getExamSchedulesBySemester(semesterId);
+    }
+
+    public List<Exam> getExamSchedulesByCourse(UUID courseId) {
+        return examRepository.getExamSchedulesByCourse(courseId);
     }
 }

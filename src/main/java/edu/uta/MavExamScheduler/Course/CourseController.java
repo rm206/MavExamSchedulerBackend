@@ -35,4 +35,17 @@ public class CourseController {
                     .body(new ErrorResponse("No courses found"));
         }
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllCourses() {
+        List<Course> courses = courseService.getAllCourses();
+
+        if (courses != null && !courses.isEmpty()) {
+            return ResponseEntity.ok(courses);
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("No courses found"));
+        }
+    }
 }
