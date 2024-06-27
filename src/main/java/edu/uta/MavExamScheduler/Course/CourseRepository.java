@@ -2,7 +2,6 @@ package edu.uta.MavExamScheduler.Course;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
@@ -17,23 +16,22 @@ import java.util.UUID;
 public class CourseRepository {
 
     private final RestTemplate restTemplate;
-    private final HttpHeaders headers;
+    private final HttpEntity<String> entity;
 
     @Value("${supabase.url}")
     private String supabaseUrl;
 
-    public CourseRepository(RestTemplate restTemplate, HttpHeaders headers) {
+    public CourseRepository(RestTemplate restTemplate, HttpEntity<String> entity) {
         this.restTemplate = restTemplate;
-        this.headers = headers;
+        this.entity = entity;
     }
 
     public List<Course> getCoursesBySemester(UUID semesterId) {
         String url = supabaseUrl + "/rest/v1/schedule?select=course_id:courses!inner(id),courses!inner(course_subject,course_number)" +
                 "&semester_id=eq." + semesterId;
-        HttpEntity<String> entity = new HttpEntity<>(headers);
 
         try {
-            ResponseEntity<Course[]> response = restTemplate.exchange(url, HttpMethod.GET, entity, Course[].class);
+            ResponseEntity<Course[]> response = restTemplate.exchange(url, HttpMethod.GET, this.entity, Course[].class);
             return Arrays.asList(response.getBody());
         } catch (Exception e) {
             e.printStackTrace();

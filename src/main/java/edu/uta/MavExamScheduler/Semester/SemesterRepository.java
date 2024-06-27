@@ -3,7 +3,6 @@ package edu.uta.MavExamScheduler.Semester;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
@@ -17,22 +16,21 @@ import java.util.List;
 public class SemesterRepository {
 
     private final RestTemplate restTemplate;
-    private final HttpHeaders headers;
+    private final HttpEntity<String> entity;
     @Value("${supabase.url}")
     private String supabaseUrl;
 
     @Autowired
-    public SemesterRepository(RestTemplate restTemplate, HttpHeaders headers) {
+    public SemesterRepository(RestTemplate restTemplate, HttpEntity<String> entity) {
         this.restTemplate = restTemplate;
-        this.headers = headers;
+        this.entity = entity;
     }
 
     public List<Semester> getAllSemesters() {
         String url = supabaseUrl + "/rest/v1/semesters";
-        HttpEntity<String> entity = new HttpEntity<>(headers);
 
         try {
-            ResponseEntity<Semester[]> response = restTemplate.exchange(url, HttpMethod.GET, entity, Semester[].class);
+            ResponseEntity<Semester[]> response = restTemplate.exchange(url, HttpMethod.GET, this.entity, Semester[].class);
 
             return Arrays.asList(response.getBody());
         } catch (Exception e) {

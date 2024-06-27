@@ -1,28 +1,32 @@
 package edu.uta.MavExamScheduler.Exam;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@JsonDeserialize(using = ExamDeserializer.class)
 public class Exam {
 
-    private String semesterName;
-    private Integer semesterYear;
-    private String courseName;
-    private String courseNumber;
+    @JsonProperty("section")
     private String section;
+    @JsonProperty("days_met")
     private String daysMet;
+    @JsonProperty("date")
     private LocalDate date;
+    @JsonProperty("start_time")
     private LocalTime startTime;
+    @JsonProperty("end_time")
     private LocalTime endTime;
+    @JsonProperty("building_name")
     private String buildingName;
+    @JsonProperty("room_no")
     private String roomNumber;
+    @JsonProperty("instructor_name")
     private String instructorName;
 
-    public Exam(String semesterName, Integer semesterYear, String courseName, String courseNumber, String section, String daysMet, LocalDate date, LocalTime startTime, LocalTime endTime, String buildingName, String roomNumber, String instructorName) {
-        this.semesterName = semesterName;
-        this.semesterYear = semesterYear;
-        this.courseName = courseName;
-        this.courseNumber = courseNumber;
+    public Exam(String section, String daysMet, LocalDate date, LocalTime startTime, LocalTime endTime, String buildingName, String roomNumber, String instructorName) {
         this.section = section;
         this.daysMet = daysMet;
         this.date = date;
@@ -33,36 +37,7 @@ public class Exam {
         this.instructorName = instructorName;
     }
 
-    public String getSemesterName() {
-        return semesterName;
-    }
-
-    public void setSemesterName(String semesterName) {
-        this.semesterName = semesterName;
-    }
-
-    public Integer getSemesterYear() {
-        return semesterYear;
-    }
-
-    public void setSemesterYear(Integer semesterYear) {
-        this.semesterYear = semesterYear;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public String getCourseNumber() {
-        return courseNumber;
-    }
-
-    public void setCourseNumber(String courseNumber) {
-        this.courseNumber = courseNumber;
+    public Exam() {
     }
 
     public String getSection() {

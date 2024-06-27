@@ -4,6 +4,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,10 +24,11 @@ public class MavExamSchedulerApplication {
     }
 
     @Bean
-    public HttpHeaders httpHeaders() {
+    public HttpEntity<String> httpHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("apikey", System.getProperty("supabase.key"));
-        return headers;
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        return entity;
     }
 
 }
