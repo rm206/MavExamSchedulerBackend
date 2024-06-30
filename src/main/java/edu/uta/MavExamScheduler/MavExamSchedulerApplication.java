@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
+
 public class MavExamSchedulerApplication {
 
     public static void main(String[] args) {
