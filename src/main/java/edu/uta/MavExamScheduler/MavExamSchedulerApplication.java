@@ -1,6 +1,5 @@
 package edu.uta.MavExamScheduler;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -9,13 +8,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-
 public class MavExamSchedulerApplication {
 
     public static void main(String[] args) {
-        Dotenv dotenv = Dotenv.load();
-        System.setProperty("supabase.url", dotenv.get("SUPABASE_URL"));
-        System.setProperty("supabase.key", dotenv.get("SUPABASE_KEY"));
+        System.setProperty("supabase.url", System.getenv("SUPABASE_URL"));
+        System.setProperty("supabase.key", System.getenv("SUPABASE_KEY"));
         SpringApplication.run(MavExamSchedulerApplication.class, args);
     }
 
