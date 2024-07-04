@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
 public class ExamDeserializer extends JsonDeserializer<Exam> {
 
@@ -25,6 +26,7 @@ public class ExamDeserializer extends JsonDeserializer<Exam> {
 
         Exam exam = new Exam();
 
+        exam.setCourse_id(UUID.fromString(node.get("course_id").asText()));
         exam.setSection(node.get("section").asText());
         exam.setDaysMet(node.get("days_met").asText());
         exam.setDate(LocalDate.parse(node.get("date").asText()));

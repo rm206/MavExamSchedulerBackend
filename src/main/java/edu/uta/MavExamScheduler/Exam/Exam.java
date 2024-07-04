@@ -5,10 +5,13 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
 @JsonDeserialize(using = ExamDeserializer.class)
 public class Exam {
 
+    @JsonProperty("course_id")
+    private UUID course_id;
     @JsonProperty("section")
     private String section;
     @JsonProperty("days_met")
@@ -26,7 +29,8 @@ public class Exam {
     @JsonProperty("instructor_name")
     private String instructorName;
 
-    public Exam(String section, String daysMet, LocalDate date, LocalTime startTime, LocalTime endTime, String buildingName, String roomNumber, String instructorName) {
+    public Exam(UUID course_id, String section, String daysMet, LocalDate date, LocalTime startTime, LocalTime endTime, String buildingName, String roomNumber, String instructorName) {
+        this.course_id = course_id;
         this.section = section;
         this.daysMet = daysMet;
         this.date = date;
@@ -38,6 +42,14 @@ public class Exam {
     }
 
     public Exam() {
+    }
+
+    public UUID getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(UUID course_id) {
+        this.course_id = course_id;
     }
 
     public String getSection() {

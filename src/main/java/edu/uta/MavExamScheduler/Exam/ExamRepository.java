@@ -28,7 +28,7 @@ public class ExamRepository {
 
     public List<Exam> getExamSchedulesBySemesterAndCourse(UUID semesterId, UUID courseId) {
 
-        String requrl = supabaseUrl + "/rest/v1/schedule?select=section,days_met,date,start_time,end_time,buildings(building_name),room_no,instructors(instructor_name)&semester_id=eq." + semesterId + "&course_id=eq." + courseId;
+        String requrl = supabaseUrl + "/rest/v1/schedule?select=course_id,section,days_met,date,start_time,end_time,buildings(building_name),room_no,instructors(instructor_name)&semester_id=eq." + semesterId + "&course_id=eq." + courseId;
 
         try {
             ResponseEntity<Exam[]> response = restTemplate.exchange(requrl, HttpMethod.GET, this.entity, Exam[].class);
@@ -41,7 +41,7 @@ public class ExamRepository {
 
     public List<Exam> getExamSchedulesBySemester(UUID semesterId) {
 
-        String requrl = supabaseUrl + "/rest/v1/schedule?select=course_id, section,days_met,date,start_time,end_time,buildings(building_name),room_no,instructors(instructor_name)&semester_id=eq." + semesterId;
+        String requrl = supabaseUrl + "/rest/v1/schedule?select=course_id,section,days_met,date,start_time,end_time,buildings(building_name),room_no,instructors(instructor_name)&semester_id=eq." + semesterId;
 
         try {
             ResponseEntity<Exam[]> response = restTemplate.exchange(requrl, HttpMethod.GET, this.entity, Exam[].class);
@@ -54,7 +54,7 @@ public class ExamRepository {
 
     public List<Exam> getExamSchedulesByCourse(UUID courseId) {
 
-        String requrl = supabaseUrl + "/rest/v1/schedule?select=section,days_met,date,start_time,end_time,buildings(building_name),room_no,instructors(instructor_name)&course_id=eq." + courseId;
+        String requrl = supabaseUrl + "/rest/v1/schedule?select=course_id,section,days_met,date,start_time,end_time,buildings(building_name),room_no,instructors(instructor_name)&course_id=eq." + courseId;
 
         try {
             ResponseEntity<Exam[]> response = restTemplate.exchange(requrl, HttpMethod.GET, this.entity, Exam[].class);
