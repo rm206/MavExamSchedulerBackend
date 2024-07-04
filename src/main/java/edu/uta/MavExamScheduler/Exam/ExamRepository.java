@@ -41,7 +41,7 @@ public class ExamRepository {
 
     public List<Exam> getExamSchedulesBySemester(UUID semesterId) {
 
-        String requrl = supabaseUrl + "/rest/v1/schedule?select=section,days_met,date,start_time,end_time,buildings(building_name),room_no,instructors(instructor_name)&semester_id=eq." + semesterId;
+        String requrl = supabaseUrl + "/rest/v1/schedule?select=course_id, section,days_met,date,start_time,end_time,buildings(building_name),room_no,instructors(instructor_name)&semester_id=eq." + semesterId;
 
         try {
             ResponseEntity<Exam[]> response = restTemplate.exchange(requrl, HttpMethod.GET, this.entity, Exam[].class);
